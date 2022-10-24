@@ -8,7 +8,7 @@ import https from 'https';
 
 //const fetch = require('node-fetch')
 
-const getDistance = require('./operations/getDistance');
+//const getDistance = require('./operations/getDistance');
 
 const app = express();
 
@@ -24,7 +24,7 @@ app.use(cors(options));
 
 const client = new Client({});
 
-const getDuration = new getDistance();
+//const getDuration = new getDistance();
 
 const PORT = 5000;
 
