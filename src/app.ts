@@ -15,9 +15,11 @@ const options: cors.CorsOptions = {
 
 app.use(cors(options));
 
+const PORT = 8080;
+
 const client = new Client({});
 
-const PORT = 8080;
+
 
 app.listen(PORT, () => {
     console.log(`App is running at http://localhost:${PORT}`);
