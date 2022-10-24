@@ -2,13 +2,6 @@ import express from 'express';
 import polyUtil from "polyline-encoded";
 import { Client } from "@googlemaps/google-maps-services-js";
 import cors from 'cors';
-import { request } from 'https';
-//import request from 'request';
-import https from 'https';
-
-//const fetch = require('node-fetch')
-
-//const getDistance = require('./operations/getDistance');
 
 const app = express();
 
@@ -23,8 +16,6 @@ const options: cors.CorsOptions = {
 app.use(cors(options));
 
 const client = new Client({});
-
-//const getDuration = new getDistance();
 
 const PORT = 5000;
 
@@ -140,11 +131,3 @@ app.get('/getDistance', async (req, res) => {
     
     
 })
-
-const getData = async (start : string, end : string) => {
-    const newCalc = new getDistance(start, end);
-    const distanceResult = newCalc.distanceCalc();
-    const data = await distanceResult;
-    console.log(data);
-    
-}
