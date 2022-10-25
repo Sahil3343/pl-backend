@@ -6,7 +6,7 @@ import cors from 'cors';
 const app = express();
 
 
-const allowedOrigins = ['http://localhost:4200', "https://plotline-angular.azurewebsites.net"];
+const allowedOrigins = ['http://localhost:4200', "https://plotline-angular.azurewebsites.net", "https://plotline-c837f.web.app"];
 
 const options: cors.CorsOptions = {
   origin: allowedOrigins
@@ -105,6 +105,21 @@ app.get('/getDistance', async (req, res) => {
     
         const latLangs = polyUtil.decode(polyLineEncoded);
 
+        console.log(latLangs.length);
+
+        let latLangsArray : any[] = new Array(latLangs.length);
+
+        for(let i = 0; i < latLangs.length; i++) {
+            const latLangsObject = {
+                lat : latLangs[i][0],
+                lng : latLangs[i][1]
+            }
+
+            latLangsArray[i] = latLangsObject;
+        }
+
+        //console.log(latLangsArray)
+
         //console.log(r.data.routes[0].legs[0].distance.text);
         //console.log(r.data.routes[0].legs[0].duration.text);
 
@@ -117,7 +132,7 @@ app.get('/getDistance', async (req, res) => {
         res.send({
             distance : distance,
             duration : duration,
-            latLangs : latLangs
+            latLangs : latLangsArray
         });
     
         //console.log(latLangs);
