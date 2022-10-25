@@ -130,6 +130,7 @@ app.get('/getDistance', async (req, res) => {
         
         res.status(200);
         res.send({
+            status : 'OK',
             distance : distance,
             duration : duration,
             latLangs : latLangsArray
