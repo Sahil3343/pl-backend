@@ -31,9 +31,6 @@ app.get('/getDistance', async (req, res) => {
         const { start } = req.query;
         const { end } = req.query;
 
-        console.log(start);
-        console.log(end);
-
         client.directions({
             params : {
                 origin: start,
