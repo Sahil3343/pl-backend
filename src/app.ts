@@ -31,6 +31,9 @@ app.get('/getDistance', async (req, res) => {
         const { start } = req.query;
         const { end } = req.query;
 
+        console.log(start);
+        console.log(end);
+
         client.directions({
             params : {
                 origin: start,
@@ -62,14 +65,14 @@ app.get('/getDistance', async (req, res) => {
             res.send({
                 status : 'error'
             });
-            console.log(e.response.data.error_message);
+            //console.log(e.response.data.error_message);
         })
-    } catch(e) {
+    } catch(er) {
         res.status(200);
             res.send({
                 status : 'error'
             });
-            console.log(e.response.data.error_message);
+            //console.log(er.response.data.error_message);
     }
 
 })
