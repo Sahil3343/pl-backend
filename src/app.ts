@@ -76,7 +76,7 @@ app.get('/getDistance', async (req, res) => {
 
     // const GetData = fetch('');
     // const convertData = (await GetData).json().then(console.log);
-
+    
 
     client.directions({
         params : {
@@ -141,6 +141,8 @@ app.get('/getDistance', async (req, res) => {
     
     })
     .catch((e) => {
+        res.status(200);
+        res.send("error");
         console.log(e.response.data.error_message);
     })
     
