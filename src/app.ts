@@ -6,7 +6,7 @@ import cors from 'cors';
 const app = express();
 
 
-const allowedOrigins = ['http://localhost:4200', "https://plotline-angular.azurewebsites.net", "https://plotline-c837f.web.app"];
+const allowedOrigins = ['http://localhost:4200', 'https://plotline-c837f.web.app'];
 
 const options: cors.CorsOptions = {
   origin: allowedOrigins
