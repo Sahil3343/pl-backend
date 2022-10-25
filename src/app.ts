@@ -142,7 +142,9 @@ app.get('/getDistance', async (req, res) => {
     })
     .catch((e) => {
         res.status(200);
-        res.send("error");
+        res.send({
+            status : 'error'
+        });
         console.log(e.response.data.error_message);
     })
     
