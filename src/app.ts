@@ -27,128 +27,54 @@ app.listen(PORT, () => {
 
 app.get('/getDistance', async (req, res) => {
 
-    const { start } = req.query;
-    const { end } = req.query;
+    try {
+        const { start } = req.query;
+        const { end } = req.query;
 
-
-    // const result = async () => {
-    //     const getDistanceBtwnLocations : string = await getDuration.distanceCalc(start, end).then(console.log);
-    //     console.log("first");
-    //     console.log(getDistanceBtwnLocations);
-    //     res.status(200);
-    //     res.send({
-    //         distance : getDistanceBtwnLocations,
-    //          //duration : duration,
-    //          //latLangs : latLangs
-    //     })
-    // }
-
-    // result();
-    
-
-    // let result;
-
-    //const result = await getDuration.distanceCalc(start, end);
-
-    //console.log(result);
-
-    // setTimeout(() => {
-    //     console.log(result);
-    // }, 1000);
-    
-    
-    //console.log(start);
-    //console.log(end);
-
-    //await getData(start, end);
-
-    //console.log("after execution");
-    
-    
-    //console.log(distanceResult);
-
-    // request("https://maps.googleapis.com/maps/api/directions/json?origin=Disneyland&destination=Universal+Studios+Hollywood&key=AIzaSyCVbEexU2_1L3UWiBtrybpMDK4PUOBGuqI", (response) => {
-    //     console.log(response);
-    //     console.log("hello")
-    // })
-
-    // console.log("test")
-
-    // const GetData = fetch('');
-    // const convertData = (await GetData).json().then(console.log);
-    
-
-    client.directions({
-        params : {
-            origin: start,
-            destination: end,
-            // waypoints: [
-            //     {
-            //     location: 'Joplin, MO',
-            //     stopover: false
-            //     },{
-            //     location: 'Oklahoma City, OK',
-            //     stopover: true
-            //     }],
-            //provideRouteAlternatives: false,
-            // drivingOptions: {
-            //     departureTime: new Date(/* now, or future date */),
-            //     trafficModel: 'pessimistic'
-            // },
-            key: "AIzaSyCVbEexU2_1L3UWiBtrybpMDK4PUOBGuqI"
-        },
-        timeout: 1000
-    })
-    .then((r) => {
-        //console.log(r.data.routes[0].overview_polyline.points);
-        const polyLineEncoded = r.data.routes[0].overview_polyline.points;
-    
-        const latLangs = polyUtil.decode(polyLineEncoded);
-
-        console.log(latLangs.length);
-
-        let latLangsArray : any[] = new Array(latLangs.length);
-
-        for(let i = 0; i < latLangs.length; i++) {
-            const latLangsObject = {
-                lat : latLangs[i][0],
-                lng : latLangs[i][1]
-            }
-
-            latLangsArray[i] = latLangsObject;
-        }
-
-        //console.log(latLangsArray)
-
-        //console.log(r.data.routes[0].legs[0].distance.text);
-        //console.log(r.data.routes[0].legs[0].duration.text);
-
-        const distance : string = r.data.routes[0].legs[0].distance.text;
-        const duration : string = r.data.routes[0].legs[0].duration.text;
-
-        //return distance;
+        client.directions({
+            params : {
+                origin: start,
+                destination: end,
+                key: "AIzaSyCVbEexU2_1L3UWiBtrybpMDK4PUOBGuqI"
+            },
+            timeout: 1000
+        })
+        .then((r) => {
+            //console.log(r.data.routes[0].overview_polyline.points);
+            const polyLineEncoded = r.data.routes[0].overview_polyline.points;
         
-        res.status(200);
-        res.send({
-            status : 'OK',
-            distance : distance,
-            duration : duration,
-            latLangs : latLangsArray
-        });
+            const latLangs = polyUtil.decode(polyLineEncoded);
     
-        //console.log(latLangs);
+            const distance : string = r.data.routes[0].legs[0].distance.text;
+            const duration : string = r.data.routes[0].legs[0].duration.text;
+            
+            res.status(200);
+            res.send({
+                status : 'OK',
+                distance : distance,
+                duration : duration,
+                latLangs : latLangs
+            });
+            
         
-    
-    
-    })
-    .catch((e) => {
+        
+        })
+        .catch((e) => {
+            res.status(200);
+            res.send({
+                status : 'error'
+            });
+            console.log(e.response.data.error_message);
+        })
+    } catch(e) {
         res.status(200);
-        res.send({
-            status : 'error'
-        });
-        console.log(e.response.data.error_message);
-    })
+            res.send({
+                status : 'error'
+            });
+            console.log(e.response.data.error_message);
+    }
     
+
     
     
     
