@@ -55,8 +55,6 @@ app.get('/getDistance', async (req, res) => {
                 duration : duration,
                 latLangs : latLangs
             });
-            
-        
         
         })
         .catch((e) => {
@@ -73,9 +71,5 @@ app.get('/getDistance', async (req, res) => {
             });
             console.log(e.response.data.error_message);
     }
-    
 
-    
-    
-    
 })
